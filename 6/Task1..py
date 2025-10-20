@@ -3,7 +3,7 @@ def total_salary(path):
         with open(path, 'r') as file:
             total = 0   # загальна зп
             count = 0   # кількість прац
-            workers = []
+            
             print("Ім'я Призвіще — Заробітна плата")
 
             for line in file:
@@ -42,6 +42,13 @@ def total_salary(path):
             return total, average
 
     except FileNotFoundError:
-        print("Файл не існує!")
+        print(f"ПОМИЛКА: Файл за шляхом '{path}' не існує!")
         return None, None
-total_salary("6/workers.txt")
+    except Exception as e:
+        print(f"Виникла неочікувана помилка: {e}")
+        return None, None
+
+total, average = total_salary("6/workers.txt")
+
+if total is not None:
+    print(f"\nРезультат: Загальна = {total}, Середня = {average}")

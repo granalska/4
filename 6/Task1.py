@@ -3,10 +3,8 @@ def total_salary(path):
         with open(path, 'r') as file:
             total = 0   # загальна зп
             count = 0   # кількість прац
-            workers = [("Alex Korp",3000),
-                       ("Nikita Borisenko",2000),
-                       ("Sitarama Raju",1000)]
-            print("Прізвище Ім'я — Заробітна плата")
+            workers = []
+            print("Ім'я Призвіще — Заробітна плата")
 
             for line in file:
                 line = line.strip()  #підчищаємо пробіли
@@ -46,4 +44,4 @@ def total_salary(path):
     except FileNotFoundError:
         print("Файл не існує!")
         return None, None
-    total_salary("workers.txt")
+total_salary("6/workers.txt")

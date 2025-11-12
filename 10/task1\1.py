@@ -5,11 +5,11 @@ def input_error(func):
         try:
             return func(*args, **kwargs)
         except ValueError:
-            return "введіть імʼя та телефон"
+            return "Give me name and phone please"
         except KeyError:
-            return "введіть коректне "
+            return "Enter correct user name"
         except IndexError:
-            return "введіть імʼя користувача"
+            return "Enter user name"
     return inner
 
 
@@ -25,7 +25,7 @@ class Name(Field):
 class Phone(Field):
     def __init__(self, value):
         if not (value.isdigit() and len(value) == 10):
-            raise ValueError("")
+            raise ValueError("Phone must contain 10 digits")
         super().__init__(value)
 
 
@@ -42,7 +42,7 @@ class Record:
             if ph.value == old:
                 ph.value = new
                 return
-        raise ValueError("старий иконтакт не знайдено")
+        raise ValueError("Old phone not found")
 
     def __str__(self):
         phones = ", ".join(p.value for p in self.phones)
@@ -61,11 +61,11 @@ class AddressBook(UserDict):
 def add_contact(args, book):
     name, phone, *_ = args
     record = book.find(name)
-    message = "контакт оновлено"
+    message = "Contact updated"
     if record is None:
         record = Record(name)
         book.add_record(record)
-        message = "контакт збережено"
+        message = "Contact added"
     record.add_phone(phone)
     return message
 
@@ -77,7 +77,7 @@ def change_contact(args, book):
     if not record:
         raise KeyError
     record.change_phone(old, new)
-    return "телефон змінено"
+    return "Phone changed"
 
 
 @input_error
@@ -92,7 +92,7 @@ def show_phone(args, book):
 @input_error
 def show_all(book):
     if not book.data:
-        return "немає збігів"
+        return "No contacts found"
     return "\n".join(str(r) for r in book.data.values())
 
 
@@ -103,26 +103,26 @@ def parse_input(text):
 
 def main():
     book = AddressBook()
-    print("Привіт! Ятвій бот-помічник;)")
-    print("команди: додати, змінити, телефон, усі, вихід")
+    print("Hi! I'm your assistant bot!")
+    print("Commands: add, change, phone, all, exit")
 
     while True:
-        user_input = input("введіть командук")
+        user_input = input("Enter a command: ")
         command, args = parse_input(user_input)
 
-        if command in ["вихіж"]:
-            print("завершення роботи...")
+        if command in ["exit", "close"]:
+            print("Good bye!")
             break
-        elif command == "додати":
+        elif command == "add":
             print(add_contact(args, book))
-        elif command == "змінити":
+        elif command == "change":
             print(change_contact(args, book))
-        elif command == "телефон":
+        elif command == "phone":
             print(show_phone(args, book))
-        elif command == "усі":
+        elif command == "all":
             print(show_all(book))
         else:
-            print("не відома команда")
+            print("Invalid command")
 
 
 if __name__ == "__main__":

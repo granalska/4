@@ -6,7 +6,7 @@ def input_error(func):
         try:
             return func(*args, **kwargs)
         except (ValueError, KeyError, IndexError):
-            return "Помилка. Не вірний формат"
+            return "Input error. Check the data format"
     return inner
 
 
@@ -22,7 +22,7 @@ class Name(Field):
 class Phone(Field):
     def __init__(self, value):
         if not (value.isdigit() and len(value) == 10):
-            raise ValueError("Помилка. Телефон має складатись з 10 цифр")
+            raise ValueError("Phone must contain 10 digits")
         super().__init__(value)
 
 
@@ -31,7 +31,7 @@ class Birthday(Field):
         try:
             self.value = datetime.strptime(value, "%d.%m.%Y").date()
         except ValueError:
-            raise ValueError("Введіть в формваті DD.MM.YYYY")
+            raise ValueError("Invalid date format. Use DD.MM.YYYY")
 
     def __str__(self):
         return self.value.strftime("%d.%m.%Y")
@@ -81,7 +81,7 @@ def add_birthday(args, book):
     if not record:
         raise KeyError
     record.add_birthday(date)
-    return f"До контакту {name} додана дата др."
+    return f"Birthday added for {name}"
 
 
 @input_error
@@ -90,14 +90,14 @@ def show_birthday(args, book):
     record = book.find(name)
     if not record or not record.birthday:
         raise KeyError
-    return f"В {name} др: {record.birthday}"
+    return f"{name}'s birthday: {record.birthday}"
 
 
 @input_error
 def birthdays(args, book):
     upcoming = book.get_upcoming_birthdays()
     if not upcoming:
-        return "Наступного тижня немає запланованих др"
+        return "No birthdays next week"
     return "\n".join(upcoming)
 
 
@@ -108,34 +108,34 @@ def parse_input(text):
 
 def main():
     book = AddressBook()
-    print("Привіт! Я твій бот-помічник;)")
-    print("Команди: додати, додати др, показати др, усі др, вихід")
+    print("Hi! I’m your assistant bot!")
+    print("Commands: add, add-birthday, show-birthday, birthdays, all, exit")
 
     while True:
-        user_input = input("Ведіть команду:")
+        user_input = input("Enter a command: ")
         command, args = parse_input(user_input)
 
-        if command in ["Вихід"]:
-            print("Завершення роботи:")
+        if command in ["exit", "close"]:
+            print("Completion of work...")
             break
-        elif command == "Додати":
+        elif command == "add":
             name, phone = args
             record = book.find(name)
             if not record:
                 record = Record(name)
                 book.add_record(record)
             record.add_phone(phone)
-            print("Контакт додано")
-        elif command == "Додати др":
+            print("Contact added")
+        elif command == "add-birthday":
             print(add_birthday(args, book))
-        elif command == "Подивитись др":
+        elif command == "show-birthday":
             print(show_birthday(args, book))
-        elif command == "Дні народженяя":
+        elif command == "birthdays":
             print(birthdays(args, book))
-        elif command == "Усі др":
-            print("\n".join(str(r) for r in book.data.values()) or "Відсутні контакти")
+        elif command == "all":
+            print("\n".join(str(r) for r in book.data.values()) or "No contacts")
         else:
-            print("Не відома команда")
+            print("Invalid command")
 
 
 if __name__ == "__main__":

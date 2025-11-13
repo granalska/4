@@ -14,5 +14,5 @@ def caching_fibonacci():
         cache[n] = fibonacci(n - 1) + fibonacci(n - 2)
         return cache[n]
 
-    #повертаємо функцію fibonacci
+    # повертаємо внутрішню функцію fibonacci
     return fibonacci

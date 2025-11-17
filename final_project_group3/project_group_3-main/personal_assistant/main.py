@@ -23,7 +23,7 @@ def input_error(func):
         try:
             return func(*args, **kwargs)
         except ValueError as e:
-            return str(e)
+            return str(e) 
         except KeyError:
             return "Contact not found."
         except IndexError:

@@ -56,3 +56,4 @@ if __name__ == "__main__":
         print("Будь ласка, введіть коректне ціле число >= 0")
     else:
         draw_snowflake(level)
+        

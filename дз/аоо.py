@@ -23,3 +23,76 @@
 # print(b)
 
 
+# n = "кукурудза у полі"
+# result = "".join('а' if ch == 'у' else ch for ch in n)
+# print(result)
+
+# def acronym(text):
+#     return "".join(word[0].upper() for word in text.split() if word)
+
+# phrase = "Харківський національний медичний університет"
+# result = acronym(phrase)
+# print(result)   
+
+
+# a = list("hello")
+# print(a)
+
+# b = ['cat', 'dog', ' monkey']
+# print(b[1][2])
+
+# for i in b:
+#     print(i[1].upper())
+
+# print(b + b)
+# print(b*2)
+# b[1]= "bird"
+# print(b)
+# del b[2]
+# print(b)
+
+# v = [ 2, 4.7, 8]
+# print(sum(v), max(v), min(v), sorted(v, reverse= True), len(v))
+# v.sort(reverse=True)
+# print(v)
+# v.append("fire")
+# print(v)
+
+# v.insert(10, True)
+# print(v)
+
+# v.extend([1,2,3])
+# print(v)
+
+# v.remove(2)
+# print(v)
+
+# r = v.pop(3)
+# print(r)
+# print(v.index(4.7))
+# print(v.count(2))
+
+# v.reverse()
+# print(v)
+
+# b=v.copy()
+# print(b, v)
+# b[0]= 5
+# print(b, v )
+# v.clear()
+# print(type(v))
+
+# b = [-1,0,5,3,2, 0,34]
+
+# for i in range(len(b)):
+#     b[i]+= 7.2
+# print(b)
+
+# c = []
+# b = float(input())
+# print("Введіть числа до 0")
+# while b != 0:
+#     c.append(b**2)
+#     b = float(input())
+    
+# print(c)

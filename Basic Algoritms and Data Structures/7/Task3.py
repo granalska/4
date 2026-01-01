@@ -72,15 +72,15 @@ def insert(root, key):
     return root
 
 def sum_avl(root):
-    if root is None:
+    if root is None: #якщо нічого немає
         return 0
-    return root.key+ sum_avl(root.left)+ sum_avl(root.right)
+    return root.key+ sum_avl(root.left)+ sum_avl(root.right) #проходимо по усіз гілках
 
 
 root = None
-keys = [10,20,32,40,50,26]
+keys = [10,20,32,40,50,26] #наше дерево
 
 for key in keys:
     root = insert(root, key)
 
-print(sum_avl(root))
+print(sum_avl(root)) #сума усього дерева
